@@ -10,12 +10,12 @@ type FixedSizeChunker struct {
 }
 
 // NewFixedSizeChunker creates a new instance of FixedSizeChunker.
-func NewFixedSizeChunker(data io.Reader, chunkSize int) *FixedSizeChunker {
+func NewFixedSizeChunker(data io.Reader, chunkSize int) (*FixedSizeChunker, error) {
 	return &FixedSizeChunker{
 		data:      data,
 		chunkSize: chunkSize,
 		buffer:    make([]byte, chunkSize),
-	}
+	}, nil
 }
 
 // Next generates the next chunk using fixed-size chunking.
