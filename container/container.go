@@ -35,4 +35,7 @@ type Address interface {
 
 	// Equals compares this address with another for equality.
 	Equals(other Address) bool
+
+	// Distance calculates the distance between this address and another.
+	Distance(other Address) int
 }
