@@ -39,3 +39,23 @@ func (c *FixedSizeChunker) Next() (*Chunk, error) {
 		Length: c.chunkSize,
 	}, nil
 }
+
+// Reset resets the FixedSizeChunker to its initial state.
+func (c *FixedSizeChunker) Reset() error {
+	// For a FixedSizeChunker, we might need to reset the underlying data reader.
+	// However, the io.Reader interface doesn't provide a Reset method.
+	// If your data reader is an *os.File or a *bytes.Buffer, you can cast it and reset it.
+	// Otherwise, you might need to provide a way to recreate the data reader.
+	return nil
+}
+
+// Close releases any resources associated with the FixedSizeChunker.
+func (c *FixedSizeChunker) Close() error {
+	// If the FixedSizeChunker's data reader also implements the io.Closer interface,
+	// we can close it to release resources.
+	if closer, ok := c.data.(io.Closer); ok {
+		return closer.Close()
+	}
+	// Otherwise, there's nothing to close.
+	return nil
+}
